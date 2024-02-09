@@ -13,9 +13,9 @@
     </head>
     <body class="bg-body-secondary">
         
-        @auth
+        {{-- @auth --}}
             @include('admin.templates.nav')
-        @endauth
+        {{-- @endauth --}}
         
         @yield('content')
 

@@ -1,3 +1,11 @@
  a.no-line{
     text-decoration: none;
  }
+
+
+
+/* Positioning search box */
+.dataTables_filter {
+   float: right;
+   margin-bottom: 2%;  
+}
