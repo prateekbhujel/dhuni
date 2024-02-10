@@ -1,11 +1,9 @@
 import $ from 'jquery';
 window.$ = $;
 import 'bootstrap';
-import 'datatables.net-responsive-bs5';
-// import 'datatables.net-responsive-jqui';
+// import 'datatables.net-responsive-bs5';
 
-
-//Initalizing toaster
+//Toaster Message show.
 $(document).ready(function() {
 
     $('.toast').show('toast');
@@ -14,7 +12,8 @@ $(document).ready(function() {
     }, 3580);
     
 });
-//Initalizing datatable
+
+// // Initalizing datatable
 // $(document).ready(function() {
 //     $('#datatable').DataTable({
 //         responsive: true,

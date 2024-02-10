@@ -40,4 +40,11 @@ class LoginController extends Controller
         return Auth::guard('admin');
         
     }//End Method
+
+    protected function loggedOut(Request $request)
+    {
+        
+        return to_route('admin.login.show')->with('info', 'User Logged Out Successfully.');
+
+    }
 }

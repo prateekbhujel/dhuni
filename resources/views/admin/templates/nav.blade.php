@@ -36,7 +36,7 @@
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-user-circle me-2"></i> Name
+                        <i class="fa-solid fa-user-circle me-2"></i> Hi, {{ auth()->user()->name }}
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -58,12 +58,13 @@
                         </li>
 
                         <li>
-                            <form action="" method="post">
-                                @csrf
-                                <button type="submit" class="btn btn-link-dropdown-item">
-                                   <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Logout
-                                </button>
-                            </form>
+                            <li>
+                                <form action="{{ route('admin.logout') }}" method="post">
+                                    @csrf
+                                    <button type="submit" class="btn btn-link-dropdown-item">
+                                       <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Logout
+                                    </button>
+                                </form>
                         </li>
                     </ul>
                 </li>
