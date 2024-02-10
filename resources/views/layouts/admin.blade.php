@@ -22,7 +22,7 @@
         @if($errors->any())
             <div class="m-3 my-5 position-fixed bottom-0 start-0">
                 @foreach ($errors->all() as $error)
-                    <div class="toast align-items-center text-bg-danger border-0 mt-3" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast align-items-center text-bg-danger border-0 mt-3"  role="alert" aria-live="assertive" aria-atomic="true">
                         <div class="d-flex">
                         <div class="toast-body">
                             {{ $error }}
@@ -33,6 +33,39 @@
                 @endforeach
             </div>
         @endif
+
+        @if (session()->has('success'))
+        <div class="toast align-items-center text-bg-success border-0 mt-3" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="d-flex">
+            <div class="toast-body">
+              {{ session()->get('success') }}
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+        </div>
+      @endif
+
+      @if (session()->has('info'))
+      <div class="toast align-items-center text-bg-info border-0 mt-3" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body">
+            {{ session()->get('info') }}
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+    @endif
+
+    @if (session()->has('warning'))
+    <div class="toast align-items-center text-bg-warning border-0 mt-3" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          {{ session()->get('warning') }}
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  @endif
 
     </body>
 </html>
