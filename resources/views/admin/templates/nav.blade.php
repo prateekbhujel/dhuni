@@ -42,13 +42,13 @@
                     <ul class="dropdown-menu dropdown-menu-end">
 
                         <li>
-                            <a class="dropdown-item nav-item" href="">
+                            <a class="dropdown-item nav-item" href="{{ route('admin.profile.edit') }}">
                                 <i class="fa-solid fa-user-edit me-2"></i>Edit Profile
                             </a>
                         </li>
                         
                         <li>
-                            <a class="dropdown-item" href="">
+                            <a class="dropdown-item" href="{{ route('admin.password.edit') }}">
                                 <i class="fa-solid fa-asterisk me-2"></i>Change Password
                             </a>
                         </li>
