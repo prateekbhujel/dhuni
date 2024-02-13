@@ -9,7 +9,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     <li class="nav-item">
-                        <a class="nav-link nav-ite">
+                        <a class="nav-link nav-ite" href="{{ route('admin.staffs.index') }}">
                             <i class="fa-solid fa-users me-2"></i>Staffs
                         </a>
                     </li>

@@ -11,7 +11,7 @@ class UserStaffRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,8 +24,8 @@ class UserStaffRequest extends FormRequest
         $rules = [
             'name'      => 'required|string|max:255',
             'email'     => 'required|string|email|max:255|unique:admins|unique:users',
-            'password'  => 'require|string|min:8',
-            'phone'     => 'required|string|max:30',
+            'password'  => 'required|string|min:8',
+            'phone'     => 'required|string|min:10|max:30',
             'address'   => 'required|string',
             'status'    => 'required|in:Active,Inactive',
         ];

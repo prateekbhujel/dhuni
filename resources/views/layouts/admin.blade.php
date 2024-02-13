@@ -28,7 +28,6 @@
                             <div class="toast-body">
                                 <i class="fas fa-times-circle me-2"></i> {{ $error }}
                             </div>
-                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                         </div>
                     </div>
                 @endforeach
@@ -41,7 +40,6 @@
                             <div class="toast-body">
                                 <i class="fas fa-{{ $icon }} me-2"></i> {{ session()->get($type) }}
                             </div>
-                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                         </div>
                     </div>
                 @endif

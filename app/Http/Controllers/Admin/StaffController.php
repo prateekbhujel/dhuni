@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserStaffRequest;
 use Illuminate\Http\Request;
+use App\Models\Admin;
 
 class StaffController extends Controller
 {
@@ -12,7 +14,8 @@ class StaffController extends Controller
      */
     public function index()
     {
-        return view('admin.staffs.index');
+        $staffs = Admin::whereType('Staff')->whereStatus('Active')->paginate(10);
+        return view('admin.staffs.index', compact('staffs'));
 
     }//End Method
 
@@ -28,9 +31,11 @@ class StaffController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserStaffRequest $request)
     {
-        //
+        Admin::create($request->validated());
+
+        return to_route('admin.staffs.index')->withSuccess('Staff Added.');
 
     }//End Method
 
@@ -39,27 +44,31 @@ class StaffController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Admin $staff)
     {
-        return view('admin.staff.edit');
+        return view('admin.staffs.edit', compact('staff'));
 
     }//End Method
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UserStaffRequest $request, Admin $Staff)
     {
-        //
+        $Staff->update($request->validated());
+
+        return redirect()->back()->withSuccess('Staff Updated.');
 
     }//End Method
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Admin $staff)
     {
-        //
+        $staff->delete();
+
+        return to_route('admin.staffs.index')->with('success', 'Staff Record Deleted.');
 
     }//End Method
 }
