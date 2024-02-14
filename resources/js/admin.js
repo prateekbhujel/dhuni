@@ -10,6 +10,14 @@ $(document).ready(function() {
     setTimeout(function(){
         $('.toast').hide('toast');
     }, 3580);
+
+    $('.delete').on('click', function(e){
+        e.preventDefault();
+
+        if(confirm("Are you Sure You Want to Delete This Record !??")) {
+            $(this).parent().submit();
+        }
+    });
     
 });
 

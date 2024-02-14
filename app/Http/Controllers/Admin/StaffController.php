@@ -14,7 +14,7 @@ class StaffController extends Controller
      */
     public function index()
     {
-        $staffs = Admin::whereType('Staff')->whereStatus('Active')->paginate(10);
+        $staffs = Admin::whereType('Staff')->paginate(10);
         return view('admin.staffs.index', compact('staffs'));
 
     }//End Method
