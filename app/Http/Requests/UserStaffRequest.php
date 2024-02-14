@@ -23,13 +23,15 @@ class UserStaffRequest extends FormRequest
     {
         $rules = [
             'name'      => 'required|string|max:255',
-            'email'     => 'required|string|email|max:255|unique:admins|unique:users',
-            'password'  => 'required|string|min:8',
             'phone'     => 'required|string|min:10|max:30',
             'address'   => 'required|string',
             'status'    => 'required|in:Active,Inactive',
         ];
-
+        //only while creating
+        if($this->has('id')) {
+            $rules['email'] = 'required|string|email|max:255|unique:admins|unique:users';
+            $rules['password'] = 'required|string|min:8';
+        }
         // Check if 'username' exists in the request data
         if ($this->has('username')) {
             $rules['username']  = 'required|string|max:15|unique:users';
