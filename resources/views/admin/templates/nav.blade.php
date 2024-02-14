@@ -7,16 +7,24 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                @if(auth('admin')->user()->status == 'Active')
 
+                    @if(auth('admin')->user()->type == 'Admin')
+                        <li class="nav-item">
+                            <a class="nav-link nav-item {{ request()->routeIs('admin.staffs.index') ? 'active' : '' }}" href="{{ route('admin.staffs.index') }}">
+                                <i class="fa-solid fa-users me-2"></i>Staffs
+                            </a>
+                        </li>
+                    @endif
                     <li class="nav-item">
-                        <a class="nav-link nav-item {{ request()->routeIs('admin.staffs.index') ? 'active' : '' }}" href="{{ route('admin.staffs.index') }}">
-                            <i class="fa-solid fa-users me-2"></i>Staffs
+                        <a class="nav-link nav-item {{ request()->routeIs('admin.users.index') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">
+                            <i class="fa-solid fa-user-friends me-2"></i>Users
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link nav-item">
-                            <i class="fa-solid fa-user-friends me-2"></i>Users
+                            <i class="fa-solid fa-comments me-2"></i>Notices
                         </a>
                     </li>
 
@@ -31,6 +39,7 @@
                             <i class="fa-solid fa-shopping-basket me-2"></i>Complaints
                         </a>
                     </li>
+                @endif
             </ul>
 
             <ul class="navbar-nav mb-2 mb-lg-0">
@@ -41,6 +50,7 @@
 
                     <ul class="dropdown-menu dropdown-menu-end">
 
+                        @if(auth('admin')->user()->status == 'Active')
                         <li>
                             <a class="dropdown-item nav-item" href="{{ route('admin.profile.edit') }}">
                                 <i class="fa-solid fa-user-edit me-2"></i>Edit Profile
@@ -52,6 +62,7 @@
                                 <i class="fa-solid fa-asterisk me-2"></i>Change Password
                             </a>
                         </li>
+                        @endif
 
                         <li>
                             <hr class="dropdown-divider">

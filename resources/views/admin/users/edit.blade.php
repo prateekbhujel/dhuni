@@ -24,7 +24,12 @@
                             <label for="name" class="form-label">Name</label>
                             <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $user->name) }}" required>
                         </div>
-                        
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Username</label>
+                            <input type="text" name="username" id="Username" class="form-control" value="{{ old('username', $user->username) }}" placeholder="jhon.doe123" required>
+                        </div>
+
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" name="email" id="email" class="form-control-plaintext" value="{{ $user->email }}" readonly style="background-color: #eeeeeecb">
@@ -38,6 +43,22 @@
                         <div class="mb-3">
                             <label for="addresss" class="form-label">Address</label>
                             <textarea name="address" id="address" class="form-control">{{ old('address', $user->address) }}</textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="avatar" class="form-label">Avatar</label>
+                            <div id="avatarPreview" class="avatar-preview">
+                                @if ($user->image)
+                                    <img src="{{ asset($user->image) }}" class="img-fluid" alt="Avatar">
+                                @else
+                                    <p>No avatar available</p>
+                                @endif
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Upload Image</label>
+                            <input type="file" name="image" id="image" class="form-control">
                         </div>
 
                         <div class="mb-3">

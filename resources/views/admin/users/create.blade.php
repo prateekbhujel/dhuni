@@ -15,23 +15,23 @@
                 </div>
             </div>
             <div class="row">
-                <form action="{{ route('admin.users.store') }}" method="post">
+                <form action="{{ route('admin.users.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="col-5 mx-auto">
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
-                            <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" placeholder="Jhon Doe" required>
+                            <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" placeholder="{{ fake()->name() }}" required>
                         </div>
 
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" name="username" id="username`" class="form-control" value="{{ old('username') }}" placeholder="Username" aria-label="jhon.doe123" aria-describedby="basic-addon1" required>
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" name="username" id="Username" class="form-control" value="{{ old('username') }}" placeholder="{{ fake()->username() }}" required autocomplete="false">
                         </div>
 
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" placeholder="jhon.doe@gmail.com" required>
+                            <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" placeholder="{{ fake()->email() }}" required>
                         </div>
 
                         <div class="mb-3">
@@ -50,9 +50,25 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="addresss" class="form-label">Address</label>
-                            <textarea name="address" id="address" class="form-control">{{ old('address') }}</textarea>
+                            <label for="about" class="form-label">About</label>
+                            <textarea name="about" id="about" class="form-control editor" placeholder="{{ fake()->paragraph() }}">{{ old('about') }}</textarea>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="addresss" class="form-label">Address</label>
+                            <textarea name="address" id="address" class="form-control" placeholder="{{ fake()->address() }}">{{ old('address') }}</textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="avatar" class="form-label">Avatar</label>
+                            <div id="avatarPreview" class="avatar-preview"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Upload Image</label>
+                            <input type="file" name="image" id="image" class="form-control">
+                        </div>
+
                         <div class="mb-3">
                             <label for="status" class="form-label">Status</label>
                             <select name="status" id="status" class="form-select" required>

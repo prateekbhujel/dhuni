@@ -21,7 +21,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    @if ($users->isNotEmpty())
+                    @if (!empty($users))
                         <table class="table table-striped table-hover table-sm">
                             <thead class="table-dark">
                                 <tr>

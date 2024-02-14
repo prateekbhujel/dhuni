@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserStaffRequest;
-use Illuminate\Http\Request;
+use App\Models\User;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager as Image;
 
 class UserController extends Controller
 {
@@ -14,7 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index');
+        $users = User::whereStatus('Active')->paginate(10);
+        return view('admin.users.index', compact('users'));
 
     }//End Method.
 
@@ -32,7 +35,10 @@ class UserController extends Controller
      */
     public function store(UserStaffRequest $request)
     {
+       
+        User::create($request->validated());
 
+        return to_route('admin.users.index');
 
     }//End Method.
 
@@ -40,9 +46,9 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        return view('admin.users.edit');
+        return view('admin.users.edit', compact('user'));
         
 
     }//End Method.
@@ -50,18 +56,22 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserStaffRequest $request, string $id)
+    public function update(UserStaffRequest $request, User $user)
     {
-        //
+        $user->update($request->validated());
+
+        return redirect()->back()->withInfo('User Details Updated.');
 
     }//End Method.
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
-
+       $user->delete(); 
+        
+       return redirect()->back()->withSuccess('User Deleted.');
+        
     }//End Method.
 }

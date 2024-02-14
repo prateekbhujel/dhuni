@@ -1,10 +1,16 @@
-import $ from 'jquery';
-window.$ = $;
 import 'bootstrap';
-// import 'datatables.net-responsive-bs5';
+import jQuery from 'jquery';
+window.$ = jQuery;
+import 'summernote';
+import Swal from 'sweetalert2';
 
-//Toaster Message show.
+
+
 $(document).ready(function() {
+    
+    // $('.editor').trumbowyg({
+    //     // svgPath: route('front.pages.index') + '/node_modules/trumbowyg/dist/ui/icons.svg';
+    // });
 
     $('.toast').show('toast');
     setTimeout(function(){
@@ -13,17 +19,50 @@ $(document).ready(function() {
 
     $('.delete').on('click', function(e){
         e.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $(this).parent().submit();
+            }
+        });
+    });
 
-        if(confirm("Are you Sure You Want to Delete This Record !??")) {
-            $(this).parent().submit();
-        }
+    $(document).ready(function () {
+        // Show current avatar image on page load
+        displayAvatar();
+    
+        $('#image').change(function () {
+            var input = this;
+            var url = $(this).val();
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                var reader = new FileReader();
+    
+                reader.onload = function (e) {
+                    $('#avatarPreview').html('<img src="' + e.target.result + '" class="img-fluid" alt="Preview Image">');
+                };
+    
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                $('#avatarPreview').html('');
+            }
+        });
     });
     
-});
+    // Function to display current avatar image
+    function displayAvatar() {
+        var image = "{{ $user->image }}";
+        if (image) {
+            $('#avatarPreview').html('<img src="{{ asset($user->image) }}" class="img-fluid" alt="Avatar">');
+        }
+    }
+    
 
-// // Initalizing datatable
-// $(document).ready(function() {
-//     $('#datatable').DataTable({
-//         responsive: true,
-//     });
-// });
+});
