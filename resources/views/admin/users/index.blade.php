@@ -26,6 +26,8 @@
                             <thead class="table-dark">
                                 <tr>
                                     <th>Name</th>
+                                    <th>Username</th>
+                                    <th>Image</th>
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Address</th>
@@ -39,6 +41,8 @@
                                 @foreach ($users as $user)
                                     <tr>
                                         <td>{{ $user->name }}</td>
+                                        <td>{!! "<a class='text-primary text-bold text-decoration-none'>@" . $user->username . "</a>" !!}</td>
+                                        <td>{{ $user->image }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->phone }}</td>
                                         <td>{{ $user->address }}</td>

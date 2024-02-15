@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager as Image;
+use Illuminate\Validation\Rule;
+
 class UserStaffRequest extends FormRequest
 {
     /**
@@ -51,7 +52,7 @@ class UserStaffRequest extends FormRequest
             if (Auth::guard('admin')->check()) {
                 // Admin can always change the username
                 if ($this->filled('username')) {
-                    $rules['username'] = 'required|string|max:15|unique:users,username';
+                    $rules['username'] = ['required', Rule::unique('users','username')->whereNot('username',$this->username)];
                 }
             } else {
                 // User is a normal user

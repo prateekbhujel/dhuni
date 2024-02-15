@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserStaffRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager as Image;
 
@@ -35,12 +36,24 @@ class UserController extends Controller
      */
     public function store(UserStaffRequest $request)
     {
-       
-        User::create($request->validated());
+        $image = $request->image;
+    
+        $filename = "img" . date('YmdHis') . rand(1000, 9999) . "." . $image->extension();
+    
+        $img = (new Image(new Driver))->read($image);
+    
+        $img->scaleDown(1280, 720)->save(storage_path("app/public/images/users/$filename"));
+    
+        $user_image = $filename;
 
-        return to_route('admin.users.index');
+        $validated = $request->validated();
+        $validated['image'] = $user_image;
 
-    }//End Method.
+        User::create($validated);
+    
+        return redirect()->route('admin.users.index');
+    }
+    
 
 
     /**
@@ -58,20 +71,44 @@ class UserController extends Controller
      */
     public function update(UserStaffRequest $request, User $user)
     {
-        $user->update($request->validated());
-
+        if($request->hasFile('image'))
+        {
+            
+            $image = $request->image;
+            
+            $filename = "img" . date('YmdHis') . rand(1000, 9999) . "." . $image->extension();
+        
+            $img = (new Image(new Driver))->read($image);
+        
+            $img->scaleDown(1280, 720)->save(storage_path("app/public/images/users/$filename"));
+        
+            $user_image = $filename;
+    
+            $validated = $request->validated();
+            $validated['image'] = $user_image;
+    
+        }
+        $validated = $request->validated();
+        $user->update($validated);
+        
         return redirect()->back()->withInfo('User Details Updated.');
 
-    }//End Method.
+    }//End Method
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(User $user)
     {
-       $user->delete(); 
+        // Delete the user's image
+        if ($user->image) {
+            Storage::disk('public')->delete("images/users/{$user->image}");
+        }
         
-       return redirect()->back()->withSuccess('User Deleted.');
-        
-    }//End Method.
+        // Delete the user
+        $user->delete();
+
+        return redirect()->back()->withSuccess('User Deleted.');
+    }
+
 }

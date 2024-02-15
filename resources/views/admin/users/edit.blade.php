@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="row">
-                <form action="{{ route('admin.users.update', [$user->id]) }}" method="post">
+                <form action="{{ route('admin.users.update', [$user->id]) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('patch')
 
