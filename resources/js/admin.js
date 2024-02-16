@@ -35,8 +35,6 @@ $(document).ready(function() {
     });
 
     $(document).ready(function () {
-        // Show current avatar image on page load
-        displayAvatar();
     
         $('#image').change(function () {
             var input = this;
@@ -55,14 +53,5 @@ $(document).ready(function() {
             }
         });
     });
-    
-    // Function to display current avatar image
-    function displayAvatar() {
-        var image = "{{ $user->image }}";
-        if (image) {
-            $('#avatarPreview').html('<img src="{{ asset($user->image) }}" class="img-fluid" alt="Avatar">');
-        }
-    }
-    
 
 });

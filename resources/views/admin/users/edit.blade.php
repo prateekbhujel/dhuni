@@ -18,6 +18,8 @@
                 <form action="{{ route('admin.users.update', [$user->id]) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('patch')
+                    <input type="hidden" value="{{ $user->created_at }}">
+                    <input type="hidden" value="{{ $user->updated_at }}">
 
                     <div class="col-5 mx-auto">
                         <div class="mb-3">
@@ -49,7 +51,7 @@
                             <label for="avatar" class="form-label">Avatar</label>
                             <div id="avatarPreview" class="avatar-preview">
                                 @if ($user->image)
-                                    <img src="{{ asset($user->image) }}" class="img-fluid" alt="Avatar">
+                                    <img src="{{ url("public/storage/images/users/$user->image") }}" class="img-fluid" alt="Avatar">
                                 @else
                                     <p>No avatar available</p>
                                 @endif

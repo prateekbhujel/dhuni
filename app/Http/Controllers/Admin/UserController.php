@@ -36,19 +36,23 @@ class UserController extends Controller
      */
     public function store(UserStaffRequest $request)
     {
-        $image = $request->image;
-    
-        $filename = "img" . date('YmdHis') . rand(1000, 9999) . "." . $image->extension();
-    
-        $img = (new Image(new Driver))->read($image);
-    
-        $img->scaleDown(1280, 720)->save(storage_path("app/public/images/users/$filename"));
-    
-        $user_image = $filename;
-
         $validated = $request->validated();
-        $validated['image'] = $user_image;
 
+        if($request->hasFile('image')){
+
+            $image = $request->image;
+        
+            $filename = "img" . date('YmdHis') . rand(1000, 9999) . "." . $image->extension();
+        
+            $img = (new Image(new Driver))->read($image);
+        
+            $img->scaleDown(1280, 720)->save(storage_path("app/public/images/users/$filename"));
+        
+            $user_image = $filename;
+    
+            $validated['image'] = $user_image;
+        }
+        
         User::create($validated);
     
         return redirect()->route('admin.users.index');
@@ -70,30 +74,31 @@ class UserController extends Controller
      * Update the specified resource in storage.
      */
     public function update(UserStaffRequest $request, User $user)
-    {
-        if($request->hasFile('image'))
-        {
-            
-            $image = $request->image;
-            
-            $filename = "img" . date('YmdHis') . rand(1000, 9999) . "." . $image->extension();
-        
-            $img = (new Image(new Driver))->read($image);
-        
-            $img->scaleDown(1280, 720)->save(storage_path("app/public/images/users/$filename"));
-        
-            $user_image = $filename;
-    
-            $validated = $request->validated();
-            $validated['image'] = $user_image;
-    
-        }
-        $validated = $request->validated();
-        $user->update($validated);
-        
-        return redirect()->back()->withInfo('User Details Updated.');
+{
+    $validatedData = $request->validated();
 
-    }//End Method
+    // Check if a new image is being uploaded
+    if ($request->hasFile('image')) {
+        // Delete the old image
+        if ($user->image) {
+            @unlink(storage_path("app/public/images/users/{$user->image}"));
+        }
+
+        // Store the new image
+        $image = $request->file('image');
+        $filename = "img" . date('YmdHis') . rand(1000, 9999) . "." . $image->extension();
+        $image->storeAs('public/images/users', $filename);
+
+        // Update the user data with the new image filename
+        $validatedData['image'] = $filename;
+    }
+
+    // Update the user record
+    $user->update($validatedData);
+
+    return redirect()->back()->withInfo('User Details Updated.');
+}//end method
+
 
     /**
      * Remove the specified resource from storage.

@@ -22,27 +22,30 @@
             <div class="row">
                 <div class="col-md-12">
                     @if (!empty($users))
-                        <table class="table table-striped table-hover table-sm">
+                        <table class="table table-striped table-hover table-sm table-responsive">
                             <thead class="table-dark">
                                 <tr>
+                                    <th>Image</th>
                                     <th>Name</th>
                                     <th>Username</th>
-                                    <th>Image</th>
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Address</th>
                                     <th>Status</th>
                                     <th>Created At</th>
                                     <th>Updated At</th>
-                                    <th>Action</th>
+                                    <th style="width: 149px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($users as $user)
                                     <tr>
+                                        <td>
+                                            <img src="{{ url("public/storage/images/users/{$user->image}") }}" class="img-thumbnail rounded-circle" 
+                                                style="max-width: 100px; max-height: 100px;">
+                                        </td>                                                                             
                                         <td>{{ $user->name }}</td>
-                                        <td>{!! "<a class='text-primary text-bold text-decoration-none'>@" . $user->username . "</a>" !!}</td>
-                                        <td>{{ $user->image }}</td>
+                                        <td>{!! "<a class='fst-italic text-info text-decoration-none' href=".route('admin.users.edit',[$user->id]).">@" . $user->username . "</a>" !!}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->phone }}</td>
                                         <td>{{ $user->address }}</td>
