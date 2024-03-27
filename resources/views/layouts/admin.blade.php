@@ -4,11 +4,11 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="csrf_token" content="{{ csrf_token() }}">
         <title>Admin | @yield('title', 'Admin') ~{{ config('app.name') }}</title>
-
-
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         @vite(['resources/sass/admin.scss', 'resources/js/admin.js'])
-
+        @routes
         
     </head>
     <body class="bg-body-secondary">

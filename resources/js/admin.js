@@ -1,16 +1,15 @@
+import 'jquery';
 import 'bootstrap';
-import jQuery from 'jquery';
-window.$ = jQuery;
-import 'summernote';
+import 'trumbowyg';
 import Swal from 'sweetalert2';
 
 
 
 $(document).ready(function() {
     
-    // $('.editor').trumbowyg({
-    //     // svgPath: route('front.pages.index') + '/node_modules/trumbowyg/dist/ui/icons.svg';
-    // });
+    $('.editor').trumbowyg({
+        svgPath: route('admin.dashboard.index') + '/node_modules/trumbowyg/dist/ui/icons.svg'
+    });
 
     $('.toast').show('toast');
     setTimeout(function(){
