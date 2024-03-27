@@ -1,4 +1,4 @@
-import 'jquery';
+import '/node_modules/jquery/dist/jquery.min';
 import 'bootstrap';
 import 'trumbowyg';
 import Swal from 'sweetalert2';
